@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" type="text/css">
+    <title>View Trip</title>
+</head>
+<body>
+    <div class="header">
+        <h2>Hello {{ current_user.first_name }}! Read about this trip!</h2>
+        <div class="links">
+            <a href="/dashboard">Dashboard</a> | <a href="/logout">Logout</a>
+        </div>
+    </div>
+    <div>
+        <h3>{{current_trip.destination}}</h3>
+        <div>
+            <p>Start Date: {{current_trip.start_date}}</p>
+            <p>End Date: {{current_trip.end_date}}</p>
+            <p>Created on: {{current_trip.created_at}}</p>
+            <p>Last Updated: {{current_trip.updated_at}}</p>
+            <p>Plan: {{current_trip.plan}}</p>
+            <p>Created by: {{current_trip.created_by_user.first_name}}</p>
+        </div>
+        <div>People who've joined this trip:
+            <ul>
+                {% if added_empty %}
+                <li>None</li>
+                {% endif %}
+                {% if not added_empty %}
+                    {% for user in current_trip_added_users %}
+                    <li>{{user.first_name}}</li>
+                    {% endfor %}
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
